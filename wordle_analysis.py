@@ -1,7 +1,5 @@
 """a little wordle analyzing"""
 
-from collections import Counter
-
 def get_letter_index(letter):
     """get index of letter (a = 0, z = 25)"""
     return ord(letter) - ord("a")
@@ -11,11 +9,14 @@ def word_repeats_letters(word):
     return len(set(word)) != len(word)
 
 def absolute_letter_frequency(word_list):
-    """returns Counter of all letters in word list"""
-    char_freq = Counter()
+    """returns list of tuples (letter, letter frequency) in order by most used"""
+    char_freq = [0] * 26
     for word in word_list:
-        char_freq.update(Counter(word))
+        for letter in word:
+            char_freq[get_letter_index(letter)] += 1
 
+    char_freq = map(lambda x: (chr(x[0] + ord("a")), x[1]), enumerate(char_freq))
+    char_freq = sorted(char_freq, key=lambda x: x[1])[::-1]
     return char_freq
 
 def positional_letter_frequency(word_list):

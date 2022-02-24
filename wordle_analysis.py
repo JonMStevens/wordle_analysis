@@ -27,15 +27,18 @@ def positional_letter_frequency(word_list):
             ret[i][get_letter_index(letter)] += 1
     return ret
 
-def get_word_rankings(word_list):
+def get_word_rankings(word_list, omit_ends_with_s=False, omit_words_with_repeated_letters=False):
     """get words most likely to have green letters
     returns list of tuples (word, score)"""
     matrix = positional_letter_frequency(word_list)
-    #todo make repeated letters an option
-    #todo make words that end with S an option
-    no_repeated_letter_words = list(filter(lambda x: not word_repeats_letters(x), words))
+
+    if omit_words_with_repeated_letters:
+        word_list = list(filter(lambda x: not word_repeats_letters(x), word_list))
+    if omit_ends_with_s:
+        word_list = list(filter(lambda x: x[4] != "s", word_list))
+
     scores = []
-    for word in no_repeated_letter_words:
+    for word in word_list:
         score = 0
         for i, letter in enumerate(word):
             score += matrix[i][get_letter_index(letter)]
@@ -48,9 +51,7 @@ if __name__ == "__main__":
         words = list(map(lambda x: x.rstrip().lower(), words))
         words = list(filter(lambda x: len(x) == 5, words))
 
-        word_rankings = get_word_rankings(words)
-
-        print(word_rankings)
+        word_rankings = get_word_rankings(words,True,True)
         # with open (r"word_rankings.txt", "w", encoding="UTF-8") as rank_file:
         #     for i, word_t in enumerate(word_rankings):
         #         rank_file.write(f"{i + 1}: {word_t[0]} ({word_t[1]})\n")

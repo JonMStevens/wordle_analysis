@@ -16,7 +16,7 @@ def absolute_letter_frequency(word_list):
             char_freq[get_letter_index(letter)] += 1
 
     char_freq = map(lambda x: (chr(x[0] + ord("a")), x[1]), enumerate(char_freq))
-    char_freq = sorted(char_freq, key=lambda x: x[1])[::-1]
+    char_freq = sorted(char_freq, key=lambda x: x[1], reverse=True)
     return char_freq
 
 def positional_letter_frequency(word_list):
@@ -43,7 +43,7 @@ def get_word_rankings(word_list, omit_ends_with_s=False, omit_words_with_repeate
         for i, letter in enumerate(word):
             score += matrix[i][get_letter_index(letter)]
         scores.append((word, score))
-    return sorted(scores, key=lambda x: x[1])[::-1]
+    return sorted(scores, key=lambda x: x[1], reverse=True)
 
 if __name__ == "__main__":
     with open (r"wordle_words.txt", "r", encoding="UTF-8") as word_file:

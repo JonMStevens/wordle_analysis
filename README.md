@@ -1,7 +1,7 @@
 # wordle_analysis
 Script to find the optimal starting word  
 **Notes:** Strictly for python practice only!  
-Requires a list of words to work on in a text file called worlde_words.txt.  
+Requires a list of words to work on in a text file called wordle_words.txt.  
 This script only tries to maximize the number of green letters a starting word will get, which may not actually be the optimal starting word strategy.  
 
 ## ranking method ##
